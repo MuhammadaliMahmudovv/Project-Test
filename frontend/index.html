@@ -1,0 +1,56 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TestMarkaz</title>
+    <!-- Тема ставится ДО отрисовки страницы, чтобы не было белой вспышки в тёмной теме.
+         Выбор пользователя хранится в localStorage ("light" / "dark"),
+         если его нет — берём тему из настроек системы. -->
+    <script>
+      (function () {
+        var theme = null;
+        try {
+          theme = localStorage.getItem("theme");
+        } catch (error) {}
+        if (theme !== "light" && theme !== "dark") {
+          theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-inner">
+        <a href="#/" class="logo">
+          <span class="logo-mark" id="logo-mark"></span>
+          <span class="logo-text">TestMarkaz</span>
+        </a>
+        <div class="header-actions">
+          <nav id="nav" class="nav"></nav>
+          <button type="button" id="theme-toggle" class="theme-toggle"></button>
+        </div>
+      </div>
+    </header>
+
+    <main id="app" class="container"></main>
+
+    <script src="{% static 'js/i18n.js' %}"></script>
+    <script src="{% static 'js/icons.js' %}"></script>
+    <script src="{% static 'js/ui.js' %}"></script>
+    <script src="{% static 'js/api.js' %}"></script>
+    <script src="{% static 'js/admin.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+  </body>
+</html>
